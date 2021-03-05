@@ -8,6 +8,7 @@ const upload = require('../middleware/multer')
 Router.post('/user/register', user.register)
 Router.post('/user/login', user.login)
 
+Router.get('/user/get', auth, user.get)
 Router.get('/all', post.getAll)
 Router.post('/post', auth, upload.single('post'), post.post)
 Router.get('/:id', auth, post.getById)

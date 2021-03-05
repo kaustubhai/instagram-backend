@@ -9,7 +9,7 @@ module.exports = {
     },
     post: async(req, res) => {
         const buffer = req.file.buffer;
-        const image = sharp(buffer).resize(500, 500).webp().toBuffer()
+        const image = await sharp(buffer).resize(500, 500).webp().toBuffer()
         const { caption, location } = req.body;
         const post = new Post({ image, caption, location, owner: req.user });
         await post.save();
