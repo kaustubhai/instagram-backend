@@ -23,9 +23,20 @@ module.exports = {
         const post = await Post.findById(id).populate('owner', 'name location profile')
         res.json(post)
     },
+    getLiked: async (req, res) => {
+        try {
+            const user = await User.findById(req.user)
+            const posts = await Post.find({}).populate('owner', 'name profile')
+            p = posts.filter(post => user.liked.indexOf(post._id) !== -1)
+            res.json(p)
+        } catch (error) {
+            console.log(error)
+            res.status(500).json({ msg: "Internal Server Error" })
+        }
+    },
     like: async (req, res) => {
         const id = req.params.id
-        const post = await Post.findById(id)
+        const post = await Post.findById(id).populate('owner', 'name profile')
         if (!post)
             res.status(400).json({ msg: "No post founded" })
         post.likes = post.likes + 1
@@ -34,5 +45,5 @@ module.exports = {
         user.liked = [...user.liked, id]
         res.json({ msg: "Post liked" })
         await user.save()
-    }
+    },
 }

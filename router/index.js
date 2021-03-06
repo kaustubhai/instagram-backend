@@ -12,6 +12,7 @@ Router.get('/user/get', auth, user.get)
 Router.get('/all', post.getAll)
 Router.post('/post', auth, upload.single('post'), post.post)
 Router.get('/:id', auth, post.getById)
+Router.get('/post/liked', auth, post.getLiked)
 Router.get('/like/:id', auth, post.like)
 
 module.exports = Router
