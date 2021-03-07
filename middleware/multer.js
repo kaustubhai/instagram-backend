@@ -8,7 +8,7 @@ const upload = multer({
         if(file.originalname.endsWith('png') || file.originalname.endsWith('jpg') || file.originalname.endsWith('jpeg'))
             return cb(null, true)
         else
-            return cb("Please upload images only")
+            return cb("Please upload images only", false)
     }
 })
 // File gets saved in req.file
