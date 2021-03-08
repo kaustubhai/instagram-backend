@@ -58,9 +58,11 @@ module.exports = {
             post.likes = post.likes + 1
             await post.save()
             const user = await User.findById(req.user)
-            user.liked = [...user.liked, id]
+            if (user.liked.indexOf(id) === -1) {                
+                user.liked = [...user.liked, id]
+                await user.save()
+            }
             res.json({ msg: "Post liked" })
-            await user.save()
         } catch (error) {
             console.log(error)
             res.status(500).json({ msg: "Internal Server Error" })

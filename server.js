@@ -4,7 +4,7 @@ const cors = require('cors')
 const dotenv = require('dotenv');
 dotenv.config()
 const db = require('./utils/db')
-db("instagram")
+db()
 const cp = require('cookie-parser')
 
 app.use(express.json({extended: false}))
